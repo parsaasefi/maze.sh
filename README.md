@@ -1,0 +1,3 @@
+# Mazed Project
+
+Coming soon...
