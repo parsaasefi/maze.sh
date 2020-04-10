@@ -56,6 +56,24 @@ class AuthService {
 
     return user.deleteOne();
   }
+
+  static async updateUser(id, name, email) {
+    const user = UserModel.findOne({ email });
+
+    if (user && user._id !== id) {
+      throw new Error('Email already exists');
+    }
+
+    return UserModel.updateOne(
+      { _id: id },
+      {
+        $set: {
+          name,
+          email,
+        },
+      }
+    );
+  }
 }
 
 module.exports = AuthService;
