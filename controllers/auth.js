@@ -66,7 +66,7 @@ class AuthController {
     }
   }
 
-  static updateUser(req, res) {
+  static async updateUser(req, res) {
     const { error: validationError } = ValidationHelper.updateUserValidation(
       req.body
     );
@@ -75,6 +75,17 @@ class AuthController {
       return res
         .status(400)
         .json({ error: validationError.details[0].message.replace(/"/g, '') });
+
+    try {
+      const id = req.user._id;
+      const name = req.body.name.toLowerCase().trim();
+      const email = req.body.email.toLowerCase().trim();
+
+      await AuthService.updateUser(id, name, email);
+      return res.json({ success: true });
+    } catch (err) {
+      return res.status(400).json({ error: err.message });
+    }
   }
 }
 

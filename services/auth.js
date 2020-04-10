@@ -58,7 +58,7 @@ class AuthService {
   }
 
   static async updateUser(id, name, email) {
-    const user = UserModel.findOne({ email });
+    const user = await UserModel.findOne({ email });
 
     if (user && user._id !== id) {
       throw new Error('Email already exists');
