@@ -19,6 +19,14 @@ class ValidationHelper {
 
     return schema.validate(data);
   }
+
+  static deleteUserValidation(data) {
+    const schema = Joi.object().keys({
+      password: Joi.string().required().label('Password'),
+    });
+
+    return schema.validate(data);
+  }
 }
 
 module.exports = ValidationHelper;
