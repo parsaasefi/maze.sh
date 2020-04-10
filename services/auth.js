@@ -24,7 +24,7 @@ class AuthService {
     return newUser.save();
   }
 
-  static async login(email, password) {
+  static async loginUser(email, password) {
     const user = await UserModel.findOne({ email });
     const errorMessage = 'Email or password is wrong';
 

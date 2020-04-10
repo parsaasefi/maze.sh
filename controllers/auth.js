@@ -20,8 +20,19 @@ class AuthController {
 
       return res.json(user);
     } catch (err) {
-      return res.json({ error: err.message });
+      return res.status(400).json({ error: err.message });
     }
+  }
+
+  static async loginUser(req, res) {
+    const { error: validationError } = ValidationHelper.loginValidation(
+      req.body
+    );
+
+    if (validationError)
+      return res
+        .status(400)
+        .json({ error: validationError.details[0].message.replace(/"/g, '') });
   }
 }
 

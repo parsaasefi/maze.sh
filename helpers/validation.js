@@ -10,6 +10,15 @@ class ValidationHelper {
 
     return schema.validate(data);
   }
+
+  static loginValidation(data) {
+    const schema = Joi.object().keys({
+      email: Joi.string().email().required().label('Email'),
+      password: Joi.string().required().label('password'),
+    });
+
+    return schema.validate(data);
+  }
 }
 
 module.exports = ValidationHelper;
