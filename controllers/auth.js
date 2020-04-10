@@ -44,6 +44,10 @@ class AuthController {
       return res.status(400).json({ error: err.message });
     }
   }
+
+  static deleteUser(req, res) {
+    res.send(req.user);
+  }
 }
 
 module.exports = AuthController;
