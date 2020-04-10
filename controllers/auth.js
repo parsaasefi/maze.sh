@@ -65,6 +65,10 @@ class AuthController {
       return res.status(400).json({ error: err.message });
     }
   }
+
+  static updateUser(req, res) {
+    res.send('Hi');
+  }
 }
 
 module.exports = AuthController;
