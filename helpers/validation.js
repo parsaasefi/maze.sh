@@ -27,6 +27,15 @@ class ValidationHelper {
 
     return schema.validate(data);
   }
+
+  static updateValidation(data) {
+    const schema = Joi.object().keys({
+      name: Joi.string().required().label('Name'),
+      email: Joi.string().email().required().label('Email'),
+    });
+
+    return schema.validate(data);
+  }
 }
 
 module.exports = ValidationHelper;

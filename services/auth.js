@@ -54,7 +54,7 @@ class AuthService {
       throw new Error('Password is invalid');
     }
 
-    return UserModel.findByIdAndDelete({ _id: id });
+    return user.deleteOne();
   }
 }
 
