@@ -28,10 +28,14 @@ class AuthService {
     const user = await UserModel.findOne({ email });
     const errorMessage = 'Email or password is wrong';
 
-    if (!user) throw new Error(errorMessage);
+    if (!user) {
+      throw new Error(errorMessage);
+    }
 
     const isValid = bcrypt.compareSync(password, user.password);
-    if (!isValid) throw new Error(errorMessage);
+    if (!isValid) {
+      throw new Error(errorMessage);
+    }
 
     const token = jwt.sign({ _id: user._id }, jwtConfig.secret);
     return token;

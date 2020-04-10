@@ -15,7 +15,7 @@ class AuthController {
     try {
       const name = req.body.name.toLowerCase().trim();
       const email = req.body.email.toLowerCase().trim();
-      const password = req.body.name.trim();
+      const password = req.body.password.trim();
       const user = await AuthService.registerUser(name, email, password);
 
       return res.json(user);
@@ -33,6 +33,16 @@ class AuthController {
       return res
         .status(400)
         .json({ error: validationError.details[0].message.replace(/"/g, '') });
+
+    try {
+      const email = req.body.email.toLowerCase().trim();
+      const password = req.body.password.trim();
+      const token = await AuthService.loginUser(email, password);
+
+      return res.json({ token });
+    } catch (err) {
+      return res.status(400).json({ error: err.message });
+    }
   }
 }
 
