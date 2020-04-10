@@ -46,7 +46,14 @@ class AuthController {
   }
 
   static deleteUser(req, res) {
-    res.send(req.user);
+    const { error: validationError } = ValidationHelper.deleteUserValidation(
+      req.body
+    );
+
+    if (validationError)
+      return res
+        .status(400)
+        .json({ error: validationError.details[0].message.replace(/"/g, '') });
   }
 }
 
