@@ -28,7 +28,7 @@ class ValidationHelper {
     return schema.validate(data);
   }
 
-  static updateValidation(data) {
+  static updateUserValidation(data) {
     const schema = Joi.object().keys({
       name: Joi.string().required().label('Name'),
       email: Joi.string().email().required().label('Email'),

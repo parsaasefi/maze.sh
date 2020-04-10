@@ -67,7 +67,14 @@ class AuthController {
   }
 
   static updateUser(req, res) {
-    res.send('Hi');
+    const { error: validationError } = ValidationHelper.updateUserValidation(
+      req.body
+    );
+
+    if (validationError)
+      return res
+        .status(400)
+        .json({ error: validationError.details[0].message.replace(/"/g, '') });
   }
 }
 
