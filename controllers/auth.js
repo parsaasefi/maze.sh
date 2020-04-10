@@ -45,7 +45,7 @@ class AuthController {
     }
   }
 
-  static deleteUser(req, res) {
+  static async deleteUser(req, res) {
     const { error: validationError } = ValidationHelper.deleteUserValidation(
       req.body
     );
@@ -54,6 +54,16 @@ class AuthController {
       return res
         .status(400)
         .json({ error: validationError.details[0].message.replace(/"/g, '') });
+
+    try {
+      const password = req.body.password.trim();
+      const id = req.user._id;
+
+      await AuthService.deleteUser(id, password);
+      return res.json({ success: true });
+    } catch (err) {
+      return res.status(400).json({ error: err.message });
+    }
   }
 }
 

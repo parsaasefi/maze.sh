@@ -37,7 +37,8 @@ class AuthService {
       throw new Error(errorMessage);
     }
 
-    const token = jwt.sign({ _id: user._id }, jwtConfig.secret);
+    const { _id } = user;
+    const token = jwt.sign({ _id }, jwtConfig.secret);
     return token;
   }
 
