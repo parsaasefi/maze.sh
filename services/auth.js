@@ -40,6 +40,21 @@ class AuthService {
     const token = jwt.sign({ _id: user._id }, jwtConfig.secret);
     return token;
   }
+
+  static async deleteUser(id, password) {
+    const user = await UserModel.findOne({ _id: id });
+
+    if (!user) {
+      throw new Error("User doesn't exist");
+    }
+
+    const isValid = bcrypt.compareSync(password, user.password);
+    if (!isValid) {
+      throw new Error('Password is invalid');
+    }
+
+    return UserModel.findByIdAndDelete({ _id: id });
+  }
 }
 
 module.exports = AuthService;
