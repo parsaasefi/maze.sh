@@ -2,28 +2,6 @@ const ValidationHelper = require('../helpers/validation');
 const AuthService = require('../services/auth');
 
 class AuthController {
-  static async registerUser(req, res) {
-    const { error: validationError } = ValidationHelper.registerValidation(
-      req.body
-    );
-
-    if (validationError)
-      return res
-        .status(400)
-        .json({ error: validationError.details[0].message.replace(/"/g, '') });
-
-    try {
-      const name = req.body.name.toLowerCase().trim();
-      const email = req.body.email.toLowerCase().trim();
-      const password = req.body.password.trim();
-      const user = await AuthService.registerUser(name, email, password);
-
-      return res.json(user);
-    } catch (err) {
-      return res.status(400).json({ error: err.message });
-    }
-  }
-
   static async loginUser(req, res) {
     const { error: validationError } = ValidationHelper.loginValidation(
       req.body
@@ -39,50 +17,10 @@ class AuthController {
       const password = req.body.password.trim();
       const token = await AuthService.loginUser(email, password);
 
-      return res.json({ token });
-    } catch (err) {
-      return res.status(400).json({ error: err.message });
-    }
-  }
-
-  static async deleteUser(req, res) {
-    const { error: validationError } = ValidationHelper.deleteUserValidation(
-      req.body
-    );
-
-    if (validationError)
-      return res
-        .status(400)
-        .json({ error: validationError.details[0].message.replace(/"/g, '') });
-
-    try {
-      const password = req.body.password.trim();
-      const id = req.user._id;
-
-      await AuthService.deleteUser(id, password);
-      return res.json({ success: true });
-    } catch (err) {
-      return res.status(400).json({ error: err.message });
-    }
-  }
-
-  static async updateUser(req, res) {
-    const { error: validationError } = ValidationHelper.updateUserValidation(
-      req.body
-    );
-
-    if (validationError)
-      return res
-        .status(400)
-        .json({ error: validationError.details[0].message.replace(/"/g, '') });
-
-    try {
-      const id = req.user._id;
-      const name = req.body.name.toLowerCase().trim();
-      const email = req.body.email.toLowerCase().trim();
-
-      await AuthService.updateUser(id, name, email);
-      return res.json({ success: true });
+      return res.json({
+        success: true,
+        token,
+      });
     } catch (err) {
       return res.status(400).json({ error: err.message });
     }

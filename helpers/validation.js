@@ -1,6 +1,11 @@
 const Joi = require('@hapi/joi');
 
 class ValidationHelper {
+  /**
+   * Validates register request
+   * @param {object} data Request body
+   * @returns {object} Validation result
+   */
   static registerValidation(data) {
     const schema = Joi.object().keys({
       name: Joi.string().required().label('Name'),
@@ -11,6 +16,11 @@ class ValidationHelper {
     return schema.validate(data);
   }
 
+  /**
+   * Validates login request
+   * @param {object} data Request body
+   * @returns {object} Validation result
+   */
   static loginValidation(data) {
     const schema = Joi.object().keys({
       email: Joi.string().email().required().label('Email'),
@@ -20,6 +30,11 @@ class ValidationHelper {
     return schema.validate(data);
   }
 
+  /**
+   * Validates delete user request
+   * @param {object} data Request body
+   * @returns {object} Validation result
+   */
   static deleteUserValidation(data) {
     const schema = Joi.object().keys({
       password: Joi.string().required().label('Password'),
@@ -28,6 +43,11 @@ class ValidationHelper {
     return schema.validate(data);
   }
 
+  /**
+   * Validates update user request
+   * @param {object} data Request body
+   * @returns {object} Validation result
+   */
   static updateUserValidation(data) {
     const schema = Joi.object().keys({
       name: Joi.string().required().label('Name'),

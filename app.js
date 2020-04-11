@@ -6,8 +6,7 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 
 const apiRoute = require('./routes/api');
-
-const mongoConfig = require('./config/mongo');
+const mongoConfig = require('./configs/mongo');
 
 const app = express();
 
