@@ -67,7 +67,7 @@ class UserController {
     }
   }
 
-  static changePassword(req, res) {
+  static async changePassword(req, res) {
     const {
       error: validationError,
     } = ValidationHelper.changePasswordValidation(req.body);
@@ -76,6 +76,17 @@ class UserController {
       return res
         .status(400)
         .json({ error: validationError.details[0].message.replace(/"/g, '') });
+
+    try {
+      const password = req.body.password.trim();
+      const newPassword = req.body.new_password.trim();
+      const { id } = req.user;
+
+      await UserService.changePassword(id, password, newPassword);
+      return res.json({ success: true });
+    } catch (err) {
+      return res.status(400).json({ error: err.message });
+    }
   }
 }
 
