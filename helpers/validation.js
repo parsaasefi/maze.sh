@@ -56,6 +56,20 @@ class ValidationHelper {
 
     return schema.validate(data);
   }
+
+  /**
+   * Validates change password request
+   * @param {object} data Request body
+   * @returns {object} Validation result
+   */
+  static changePasswordValidation(data) {
+    const schema = Joi.object().keys({
+      password: Joi.string().required().label('Old password'),
+      new_password: Joi.string().min(6).required().label('New password'),
+    });
+
+    return schema.validate(data);
+  }
 }
 
 module.exports = ValidationHelper;
