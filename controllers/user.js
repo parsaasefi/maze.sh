@@ -36,7 +36,7 @@ class UserController {
 
     try {
       const password = req.body.password.trim();
-      const id = req.user._id;
+      const { id } = req.user;
 
       await UserService.deleteUser(id, password);
       return res.json({ success: true });
@@ -56,7 +56,7 @@ class UserController {
         .json({ error: validationError.details[0].message.replace(/"/g, '') });
 
     try {
-      const id = req.user._id;
+      const { id } = req.user;
       const name = req.body.name.toLowerCase().trim();
       const email = req.body.email.toLowerCase().trim();
 

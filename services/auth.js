@@ -19,8 +19,8 @@ class AuthService {
       throw new Error(errorMessage);
     }
 
-    const { _id } = user;
-    const token = jwt.sign({ _id }, jwtConfig.secret);
+    const id = user._id;
+    const token = jwt.sign({ id }, jwtConfig.secret);
     return token;
   }
 }

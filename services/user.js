@@ -39,7 +39,7 @@ class UserService {
   static async updateUser(id, name, email) {
     const user = await UserModel.findOne({ email });
 
-    if (user && user._id !== id) {
+    if (user && String(user._id) !== id) {
       throw new Error('Email already exists');
     }
 
