@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 
 const UserModel = require('../models/User');
 
-const jwtConfig = require('../config/jwt');
+const jwtConfig = require('../configs/jwt');
 
 class AuthService {
   static async loginUser(email, password) {
