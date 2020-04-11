@@ -2,6 +2,10 @@ const ValidationHelper = require('../helpers/validation');
 const UserService = require('../services/user');
 
 class UserController {
+  static async getUserData(req, res) {
+    res.send('hi');
+  }
+
   static async registerUser(req, res) {
     const { error: validationError } = ValidationHelper.registerValidation(
       req.body

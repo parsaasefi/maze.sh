@@ -5,6 +5,7 @@ const authenticateUser = require('../../middlewares/authenticate');
 
 const router = express.Router();
 
+router.get('/', authenticateUser, UserController.getUserData);
 router.post('/register', UserController.registerUser);
 router.delete('/delete', authenticateUser, UserController.deleteUser);
 router.patch('/update', authenticateUser, UserController.updateUser);
