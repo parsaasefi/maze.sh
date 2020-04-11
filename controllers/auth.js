@@ -1,5 +1,8 @@
+const jwt = require('jsonwebtoken');
+
 const ValidationHelper = require('../helpers/validation');
 const AuthService = require('../services/auth');
+const jwtConfig = require('../configs/jwt');
 
 class AuthController {
   static async loginUser(req, res) {
@@ -23,6 +26,22 @@ class AuthController {
       });
     } catch (err) {
       return res.status(400).json({ error: err.message });
+    }
+  }
+
+  static validateToken(req, res) {
+    const token = req.header('auth-token');
+
+    if (!token) {
+      return res.json({ valid: false });
+    }
+
+    try {
+      jwt.verify(token, jwtConfig.secret);
+
+      return res.json({ valid: true });
+    } catch (err) {
+      return res.json({ valid: false });
     }
   }
 }
