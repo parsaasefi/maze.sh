@@ -3,6 +3,16 @@ const bcrypt = require('bcryptjs');
 const UserModel = require('../models/User');
 
 class UserService {
+  static async getUserData(id) {
+    const user = await UserModel.findOne({ _id: id });
+
+    if (!user) {
+      throw new Error("User doesn't exist");
+    }
+
+    return user;
+  }
+
   /**
    * Registers the user
    * @param {string} name User's name
