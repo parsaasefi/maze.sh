@@ -17,7 +17,10 @@ class AuthController {
       const password = req.body.password.trim();
       const token = await AuthService.loginUser(email, password);
 
-      return res.json({ token });
+      return res.json({
+        success: true,
+        token,
+      });
     } catch (err) {
       return res.status(400).json({ error: err.message });
     }

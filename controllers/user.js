@@ -16,9 +16,9 @@ class UserController {
       const name = req.body.name.toLowerCase().trim();
       const email = req.body.email.toLowerCase().trim();
       const password = req.body.password.trim();
-      const user = await UserService.registerUser(name, email, password);
 
-      return res.json(user);
+      await UserService.registerUser(name, email, password);
+      return res.json({ success: true });
     } catch (err) {
       return res.status(400).json({ error: err.message });
     }
