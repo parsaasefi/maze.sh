@@ -68,7 +68,14 @@ class UserController {
   }
 
   static changePassword(req, res) {
-    res.send('Hello World');
+    const {
+      error: validationError,
+    } = ValidationHelper.changePasswordValidation(req.body);
+
+    if (validationError)
+      return res
+        .status(400)
+        .json({ error: validationError.details[0].message.replace(/"/g, '') });
   }
 }
 
