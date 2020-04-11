@@ -3,6 +3,11 @@ const bcrypt = require('bcryptjs');
 const UserModel = require('../models/User');
 
 class UserService {
+  /**
+   * Gets the user's data
+   * @param {string} id User's id
+   * @returns {promise}
+   */
   static async getUserData(id) {
     const user = await UserModel.findOne({ _id: id });
 

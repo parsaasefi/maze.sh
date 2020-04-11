@@ -3,7 +3,20 @@ const UserService = require('../services/user');
 
 class UserController {
   static async getUserData(req, res) {
-    res.send('hi');
+    try {
+      const { id } = req.user;
+      const userData = await UserService.getUserData(id);
+
+      return res.json({
+        success: true,
+        data: {
+          name: userData.name,
+          email: userData.email,
+        },
+      });
+    } catch (err) {
+      return res.status(400).json({ error: err.message });
+    }
   }
 
   static async registerUser(req, res) {
