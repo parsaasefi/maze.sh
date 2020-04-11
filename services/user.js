@@ -73,6 +73,38 @@ class UserService {
       }
     );
   }
+
+  /**
+   * Changes the user's password
+   * @param {string} id User's id
+   * @param {string} password User's password
+   * @param {string} newPassword New password to set
+   * @returns {promise}
+   */
+  static async changePassword(id, password, newPassword) {
+    const user = await UserModel.findOne({ _id: id });
+
+    if (!user) {
+      throw new Error("User doesn't exist");
+    }
+
+    const isValid = bcrypt.compareSync(password, user.password);
+    if (!isValid) {
+      throw new Error('Password is invalid');
+    }
+
+    const salt = bcrypt.genSaltSync(10);
+    const hashedPassword = bcrypt.hashSync(newPassword, salt);
+
+    return UserMode.updateOne(
+      { _id: id },
+      {
+        $set: {
+          password: hashedPassword,
+        },
+      }
+    );
+  }
 }
 
 module.exports = UserService;
