@@ -96,7 +96,7 @@ class UserService {
     const salt = bcrypt.genSaltSync(10);
     const hashedPassword = bcrypt.hashSync(newPassword, salt);
 
-    return UserMode.updateOne(
+    return UserModel.updateOne(
       { _id: id },
       {
         $set: {
