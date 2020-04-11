@@ -66,6 +66,10 @@ class UserController {
       return res.status(400).json({ error: err.message });
     }
   }
+
+  static changePassword(req, res) {
+    res.send('Hello World');
+  }
 }
 
 module.exports = UserController;
