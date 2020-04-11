@@ -11,7 +11,10 @@ const mongoConfig = require('./configs/mongo');
 const app = express();
 
 mongoose
-  .connect(mongoConfig.uri)
+  .connect(mongoConfig.uri, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
   .then(() => console.log('MongoDB connected'))
   .catch(err => console.error(err));
 
