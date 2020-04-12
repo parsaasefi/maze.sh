@@ -12,6 +12,7 @@ class LinkValidator {
         .optional()
         .allow('')
         .label('Custom alias'),
+      password: Joi.string().min(6).optional().allow('').label('Password'),
     });
 
     return schema.validate(data);
