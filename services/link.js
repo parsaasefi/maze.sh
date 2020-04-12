@@ -3,15 +3,22 @@ const LinkHelper = require('../helpers/link');
 const URLHelper = require('../helpers/url');
 
 class LinkService {
-  static async createLink(destination) {
+  static async createLink(destination, customAlias) {
     const finalDestination = await URLHelper.follow(destination);
     let alias = LinkHelper.generateRandomAlias(6);
 
-    while (true) {
-      const link = await LinkModel.findOne({ alias });
-      if (!link) break;
+    if (!customAlias) {
+      while (true) {
+        const link = await LinkModel.findOne({ alias });
+        if (!link) break;
 
-      alias = LinkHelper.generateRandomAlias(6);
+        alias = LinkHelper.generateRandomAlias(6);
+      }
+    } else {
+      const link = await LinkModel.findOne({ alias: customAlias });
+      if (link) throw new Error('Custom alias already exists');
+
+      alias = customAlias;
     }
 
     const newLink = new LinkModel({
