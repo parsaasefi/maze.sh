@@ -6,6 +6,7 @@
     "no-console": "off",
     "no-underscore-dangle": "off",
     "no-plusplus": "off",
-    "no-constant-condition": "off"
+    "no-constant-condition": "off",
+    "no-await-in-loop": "off"
   }
 }

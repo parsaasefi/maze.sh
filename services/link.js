@@ -8,7 +8,7 @@ class LinkService {
     let alias = LinkHelper.generateRandomAlias(6);
 
     while (true) {
-      const link = LinkModel.findOne({ alias });
+      const link = await LinkModel.findOne({ alias });
       if (!link) break;
 
       alias = LinkHelper.generateRandomAlias(6);
