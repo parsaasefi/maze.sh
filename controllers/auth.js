@@ -1,14 +1,12 @@
 const jwt = require('jsonwebtoken');
 
-const ValidationHelper = require('../helpers/validation');
+const AuthValidator = require('../validators/auth');
 const AuthService = require('../services/auth');
 const jwtConfig = require('../configs/jwt');
 
 class AuthController {
   static async loginUser(req, res) {
-    const { error: validationError } = ValidationHelper.loginValidation(
-      req.body
-    );
+    const { error: validationError } = AuthValidator.login(req.body);
 
     if (validationError)
       return res

@@ -1,12 +1,12 @@
 const Joi = require('@hapi/joi');
 
-class ValidationHelper {
+class UserValidator {
   /**
    * Validates register request
    * @param {object} data Request body
    * @returns {object} Validation result
    */
-  static registerValidation(data) {
+  static register(data) {
     const schema = Joi.object().keys({
       name: Joi.string().required().label('Name'),
       email: Joi.string().email().required().label('Email'),
@@ -17,25 +17,11 @@ class ValidationHelper {
   }
 
   /**
-   * Validates login request
-   * @param {object} data Request body
-   * @returns {object} Validation result
-   */
-  static loginValidation(data) {
-    const schema = Joi.object().keys({
-      email: Joi.string().email().required().label('Email'),
-      password: Joi.string().required().label('password'),
-    });
-
-    return schema.validate(data);
-  }
-
-  /**
    * Validates delete user request
    * @param {object} data Request body
    * @returns {object} Validation result
    */
-  static deleteUserValidation(data) {
+  static delete(data) {
     const schema = Joi.object().keys({
       password: Joi.string().required().label('Password'),
     });
@@ -48,7 +34,7 @@ class ValidationHelper {
    * @param {object} data Request body
    * @returns {object} Validation result
    */
-  static updateUserValidation(data) {
+  static update(data) {
     const schema = Joi.object().keys({
       name: Joi.string().required().label('Name'),
       email: Joi.string().email().required().label('Email'),
@@ -62,7 +48,7 @@ class ValidationHelper {
    * @param {object} data Request body
    * @returns {object} Validation result
    */
-  static changePasswordValidation(data) {
+  static changePassword(data) {
     const schema = Joi.object().keys({
       password: Joi.string().required().label('Old password'),
       new_password: Joi.string().min(6).required().label('New password'),
@@ -72,4 +58,4 @@ class ValidationHelper {
   }
 }
 
-module.exports = ValidationHelper;
+module.exports = UserValidator;

@@ -1,4 +1,4 @@
-const ValidationHelper = require('../helpers/validation');
+const UserValidator = require('../validators/user');
 const UserService = require('../services/user');
 
 class UserController {
@@ -20,9 +20,7 @@ class UserController {
   }
 
   static async registerUser(req, res) {
-    const { error: validationError } = ValidationHelper.registerValidation(
-      req.body
-    );
+    const { error: validationError } = UserValidator.register(req.body);
 
     if (validationError)
       return res
@@ -42,9 +40,7 @@ class UserController {
   }
 
   static async deleteUser(req, res) {
-    const { error: validationError } = ValidationHelper.deleteUserValidation(
-      req.body
-    );
+    const { error: validationError } = UserValidator.delete(req.body);
 
     if (validationError)
       return res
@@ -63,9 +59,7 @@ class UserController {
   }
 
   static async updateUser(req, res) {
-    const { error: validationError } = ValidationHelper.updateUserValidation(
-      req.body
-    );
+    const { error: validationError } = UserValidator.update(req.body);
 
     if (validationError)
       return res
@@ -85,9 +79,7 @@ class UserController {
   }
 
   static async changePassword(req, res) {
-    const {
-      error: validationError,
-    } = ValidationHelper.changePasswordValidation(req.body);
+    const { error: validationError } = UserValidator.changePassword(req.body);
 
     if (validationError)
       return res
