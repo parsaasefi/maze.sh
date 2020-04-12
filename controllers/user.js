@@ -12,6 +12,7 @@ class UserController {
         data: {
           name: userData.name,
           email: userData.email,
+          apiKey: userData.apiKey,
         },
       });
     } catch (err) {
