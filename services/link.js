@@ -11,9 +11,7 @@ class LinkService {
     creatorID = null,
     password = null
   ) {
-    const finalDestination = await URLHelper.follow(destination);
     let alias = LinkHelper.generateRandomAlias(6);
-    let hashedPassword = null;
 
     if (!customAlias) {
       while (true) {
@@ -29,11 +27,14 @@ class LinkService {
       alias = customAlias;
     }
 
+    let hashedPassword = null;
+
     if (password) {
       const salt = bcrypt.genSaltSync(10);
       hashedPassword = bcrypt.hashSync(password, salt);
     }
 
+    const finalDestination = await URLHelper.follow(destination);
     const newLink = new LinkModel({
       destination: finalDestination,
       creator_id: creatorID,
