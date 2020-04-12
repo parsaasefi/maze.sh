@@ -17,6 +17,10 @@ const linkSchema = new mongoose.Schema({
     type: String,
     default: null,
   },
+  password: {
+    type: String,
+    default: null,
+  },
   date: {
     type: Date,
     default: Date.now,

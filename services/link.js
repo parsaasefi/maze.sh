@@ -1,10 +1,16 @@
+const bcrypt = require('bcryptjs');
+
 const LinkModel = require('../models/Link');
 const LinkHelper = require('../helpers/link');
 const URLHelper = require('../helpers/url');
 
 class LinkService {
-  static async createLink(destination, customAlias, creatorID = null) {
-    const finalDestination = await URLHelper.follow(destination);
+  static async createLink(
+    destination,
+    customAlias,
+    creatorID = null,
+    password = null
+  ) {
     let alias = LinkHelper.generateRandomAlias(6);
 
     if (!customAlias) {
@@ -21,9 +27,18 @@ class LinkService {
       alias = customAlias;
     }
 
+    let hashedPassword = null;
+
+    if (password) {
+      const salt = bcrypt.genSaltSync(10);
+      hashedPassword = bcrypt.hashSync(password, salt);
+    }
+
+    const finalDestination = await URLHelper.follow(destination);
     const newLink = new LinkModel({
       destination: finalDestination,
       creator_id: creatorID,
+      password: hashedPassword,
       alias,
     });
 
