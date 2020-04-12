@@ -5,6 +5,7 @@
     "prettier/prettier": ["error"],
     "no-console": "off",
     "no-underscore-dangle": "off",
-    "no-plusplus": "off"
+    "no-plusplus": "off",
+    "no-constant-condition": "off"
   }
 }
