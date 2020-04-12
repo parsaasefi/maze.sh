@@ -11,6 +11,14 @@ class LinkController {
         .json({ error: validationError.details[0].message.replace(/"/g, '') });
 
     try {
+      if (req.isAuthenticated) {
+        const destination = req.body.destination.trim();
+        const alias = req.body.custom_alias || null;
+        const link = await LinkService.createLink(destination, alias);
+
+        return res.json(link);
+      }
+
       const destination = req.body.destination.trim();
       const link = await LinkService.createLink(destination);
 

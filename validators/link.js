@@ -7,7 +7,11 @@ class LinkValidator {
         .uri({ allowRelative: true })
         .required()
         .label('URL'),
-      alias: Joi.string().min(4).optional(),
+      custom_alias: Joi.string()
+        .min(4)
+        .optional()
+        .allow('')
+        .label('Custom alias'),
     });
 
     return schema.validate(data);
