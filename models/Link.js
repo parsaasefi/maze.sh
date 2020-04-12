@@ -13,6 +13,10 @@ const linkSchema = new mongoose.Schema({
     type: Number,
     default: 0,
   },
+  creator_id: {
+    type: String,
+    default: null,
+  },
   date: {
     type: Date,
     default: Date.now,
