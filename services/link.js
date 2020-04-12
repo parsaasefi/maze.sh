@@ -1,7 +1,18 @@
 const LinkModel = require('../models/Link');
+const LinkHelper = require('../helpers/link');
+const URLHelper = require('../helpers/url');
 
 class LinkService {
-  static createLink(destination) {}
+  static async createLink(destination) {
+    const finalDestination = await URLHelper.follow(destination);
+    const alias = LinkHelper.generateRandomAlias(6);
+    const newLink = new LinkModel({
+      destination: finalDestination,
+      alias,
+    });
+
+    return newLink.save();
+  }
 }
 
 module.exports = LinkService;
