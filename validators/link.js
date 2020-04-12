@@ -16,6 +16,11 @@ class LinkValidator {
 
     return schema.validate(data);
   }
+
+  static customAlias(alias) {
+    const aliasPattern = /^[a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]$/;
+    return aliasPattern.test(alias);
+  }
 }
 
 module.exports = LinkValidator;
