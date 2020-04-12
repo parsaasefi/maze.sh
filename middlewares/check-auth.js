@@ -6,15 +6,16 @@ const checkAuth = (req, res, next) => {
   const token = req.header('auth-token');
 
   if (!token) {
-    req.authenticated = false;
+    req.isAuthenticated = false;
   }
 
   try {
-    jwt.verify(token, jwtConfig.secret);
+    const user = jwt.verify(token, jwtConfig.secret);
 
-    req.authenticated = true;
+    req.user = user;
+    req.isAuthenticated = true;
   } catch (err) {
-    req.authenticated = false;
+    req.isAuthenticated = false;
   }
 
   return next();
