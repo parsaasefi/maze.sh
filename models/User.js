@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
 
+const APIHelper = require('../helpers/api');
+
 const userSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -12,6 +14,10 @@ const userSchema = new mongoose.Schema({
   password: {
     type: String,
     required: true,
+  },
+  apiKey: {
+    type: String,
+    default: APIHelper.generateKey,
   },
   date: {
     type: Date,
