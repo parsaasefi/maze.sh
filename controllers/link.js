@@ -12,15 +12,18 @@ class LinkController {
 
     try {
       if (req.isAuthenticated) {
+        const { id } = req.user;
         const destination = req.body.destination.trim();
-        const alias = req.body.custom_alias || null;
+        const alias = req.body.custom_alias
+          ? req.body.custom_alias.trim()
+          : null;
         const isAliasValid = LinkValidator.customAlias(alias);
 
         if (alias && !isAliasValid) {
           throw new Error('Custom alias is not valid');
         }
 
-        const link = await LinkService.createLink(destination, alias);
+        const link = await LinkService.createLink(destination, alias, id);
 
         return res.json(link);
       }

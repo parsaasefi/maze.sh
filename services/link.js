@@ -3,7 +3,7 @@ const LinkHelper = require('../helpers/link');
 const URLHelper = require('../helpers/url');
 
 class LinkService {
-  static async createLink(destination, customAlias) {
+  static async createLink(destination, customAlias, creatorID = null) {
     const finalDestination = await URLHelper.follow(destination);
     let alias = LinkHelper.generateRandomAlias(6);
 
@@ -23,6 +23,7 @@ class LinkService {
 
     const newLink = new LinkModel({
       destination: finalDestination,
+      creator_id: creatorID,
       alias,
     });
 
