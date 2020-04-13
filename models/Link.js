@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const { v4: uuidv4 } = require('uuid');
 
 const linkSchema = new mongoose.Schema({
   destination: {
@@ -8,6 +9,10 @@ const linkSchema = new mongoose.Schema({
   alias: {
     type: String,
     required: true,
+  },
+  uuid: {
+    type: String,
+    default: uuidv4,
   },
   clicks: {
     type: Number,
