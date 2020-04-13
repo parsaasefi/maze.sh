@@ -23,6 +23,20 @@ class URLHelper {
     return URL.format(parsedURL);
   }
 
+  static allPossibleHosts(url) {
+    const parsedURL = URL.parse(url);
+    const { hostname } = parsedURL;
+    const { length } = hostname;
+    const hosts = [hostname];
+
+    for (let i = 1; i < length - 1; i++) {
+      const host = hostname.split('.').slice(i);
+      hosts.push(host);
+    }
+
+    return hosts;
+  }
+
   /**
    * Follows the redirects of the given url
    * @param {string} url URL to follow its redirects
