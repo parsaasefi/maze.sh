@@ -19,14 +19,15 @@ class LinkService {
     creatorID = null,
     password = null
   ) {
-    let alias = LinkHelper.generateRandomAlias(6);
+    const aliasSize = 6;
+    let alias = LinkHelper.generateRandomAlias(aliasSize);
 
     if (!customAlias) {
       while (true) {
         const link = await LinkModel.findOne({ alias });
         if (!link) break;
 
-        alias = LinkHelper.generateRandomAlias(6);
+        alias = LinkHelper.generateRandomAlias(aliasSize);
       }
     } else {
       const link = await LinkModel.findOne({ alias: customAlias });

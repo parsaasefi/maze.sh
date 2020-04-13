@@ -30,11 +30,14 @@ class LinkController {
           creatorID,
           password
         );
-
-        return res.json({
+        const response = {
           success: true,
           alias: link.alias,
-        });
+        };
+
+        if (password) response.protected = true;
+
+        return res.json(response);
       }
 
       const destination = req.body.destination.trim();
