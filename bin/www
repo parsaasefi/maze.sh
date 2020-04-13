@@ -6,6 +6,7 @@ const dotenv = require('dotenv');
 const clear = require('console-clear');
 
 const app = require('../app');
+const blacklist = require('../blacklist');
 
 dotenv.config({
   path: path.resolve(__dirname, '../.env'),
@@ -14,9 +15,16 @@ dotenv.config({
 const server = http.createServer(app);
 const PORT = process.env.PORT || 3000;
 
-server.listen(PORT, err => {
-  if (err) throw new Error(err);
+blacklist
+  .connect()
+  .then(() => {
+    clear(true);
+    console.log('Blacklist connected.');
 
-  clear(true);
-  console.log(`Server running on port ${PORT}`);
-});
+    server.listen(PORT, err => {
+      if (err) throw new Error(err);
+
+      console.log(`Server running on port ${PORT}.`);
+    });
+  })
+  .catch(err => console.error(err));
