@@ -7,6 +7,6 @@ const authenticateUser = require('../../middlewares/authenticate');
 const router = express.Router();
 
 router.post('/', checkAuth, LinkController.createLink);
-router.get('/', authenticateUser, LinkController.getUserLinks);
+router.get('/:page?', authenticateUser, LinkController.getUserLinks);
 
 module.exports = router;

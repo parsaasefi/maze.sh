@@ -2,8 +2,17 @@ const LinkValidator = require('../validators/link');
 const LinkService = require('../services/link');
 
 class LinkController {
-  static getUserLinks(req, res) {
-    res.send('Hello World');
+  static async getUserLinks(req, res) {
+    try {
+      const { id } = req.user;
+      const limit = 5;
+      const page = req.params.page || 1;
+      const links = await LinkService.getUserLinks(id, limit, page);
+
+      return res.json(links);
+    } catch (err) {
+      return res.status(400).json({ error: err.message });
+    }
   }
 
   static async createLink(req, res) {
