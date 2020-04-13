@@ -2,10 +2,6 @@ const LinkValidator = require('../validators/link');
 const LinkService = require('../services/link');
 
 class LinkController {
-  static getLinkData(req, res) {
-    res.send('Hello World');
-  }
-
   static async createLink(req, res) {
     const { error: validationError } = LinkValidator.create(req.body);
 
