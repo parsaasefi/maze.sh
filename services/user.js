@@ -1,6 +1,7 @@
 const bcrypt = require('bcryptjs');
 
 const UserModel = require('../models/User');
+const LinkModel = require('../models/Link');
 
 class UserService {
   /**
@@ -119,6 +120,22 @@ class UserService {
         },
       }
     );
+  }
+
+  static async getLinks(id) {
+    const links = await LinkModel.find({ creator_id: id });
+    const res = links.map(link => {
+      return {
+        id: link._id,
+        destination: link.destination,
+        alias: link.alias,
+        protected: !!link.password,
+        clicks: link.clicks,
+        date: link.date,
+      };
+    });
+
+    return res;
   }
 }
 

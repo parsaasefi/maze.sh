@@ -6,27 +6,6 @@ const URLHelper = require('../helpers/url');
 const SecurityHelper = require('../helpers/security');
 
 class LinkService {
-  static async getUserLinks(id, limit, page) {
-    const linksCount = await LinkModel.find({ creator_id: id }).count();
-    const links = await LinkModel.find({ creator_id: id })
-      .skip((page - 1) * limit)
-      .limit(limit);
-    const linkArray = links.map(link => {
-      return {
-        destination: link.destination,
-        alias: link.alias,
-        uuid: link.uuid,
-        date: link.date,
-      };
-    });
-    const res = {
-      has_more: linksCount - page * limit > 0,
-      links: linkArray,
-    };
-
-    return res;
-  }
-
   /**
    * Shortens the given url (destination)
    * @param {string} destination URL to be shortened

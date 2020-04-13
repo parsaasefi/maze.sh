@@ -98,6 +98,20 @@ class UserController {
       return res.status(400).json({ error: err.message });
     }
   }
+
+  static async getLinks(req, res) {
+    try {
+      const { id } = req;
+      const links = await UserService.getLinks(id);
+
+      return res.json({
+        success: true,
+        links,
+      });
+    } catch (err) {
+      return res.status(400).json({ error: err.message });
+    }
+  }
 }
 
 module.exports = UserController;
