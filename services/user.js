@@ -122,6 +122,11 @@ class UserService {
     );
   }
 
+  /**
+   * Gets all links which their creator_id equals to id
+   * @param {string} id The user's id
+   * @returns {array} All links
+   */
   static async getLinks(id) {
     const links = await LinkModel.find({ creator_id: id });
     const res = links.map(link => {
