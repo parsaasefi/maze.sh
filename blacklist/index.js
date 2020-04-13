@@ -1,4 +1,5 @@
 const mysql = require('mysql2/promise');
+const { escape } = require('sqlstring');
 
 const config = require('../configs/blacklist');
 
@@ -21,6 +22,15 @@ class Blacklist {
       .then(connection => {
         this.connection = connection;
       });
+  }
+
+  get(hosts) {
+    const queryArray = ['SELECT * FROM blacklist WHERE'];
+    const searchArray = hosts.map(host => `host=${escape(host)}`);
+    const search = searchArray.join(' OR ');
+    const query = queryArray.concat(search).join(' ');
+
+    return this.connection.query(query);
   }
 }
 
