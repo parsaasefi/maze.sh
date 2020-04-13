@@ -1,6 +1,15 @@
 const followRedirect = require('follow-redirect-url');
 
 class URLHelper {
+  static addProtocol(url) {
+    const httpPattern = /^http/i;
+    const relativePattern = /^\/\//i;
+
+    if (httpPattern.test(url)) return url;
+    if (relativePattern.test(url)) return `https:${url}`;
+    return url;
+  }
+
   /**
    * Follows the redirects of the given url
    * @param {string} url URL to follow its redirects
