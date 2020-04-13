@@ -5,6 +5,14 @@ const LinkHelper = require('../helpers/link');
 const URLHelper = require('../helpers/url');
 
 class LinkService {
+  /**
+   * Shortens the given url (destination)
+   * @param {string} destination URL to be shortened
+   * @param {string} customAlias Custom alias
+   * @param {string} creatorID The id of the creator
+   * @param {string} password Password for the protected links
+   * @returns {promise}
+   */
   static async createLink(
     destination,
     customAlias,
