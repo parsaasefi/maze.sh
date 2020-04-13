@@ -31,13 +31,19 @@ class LinkController {
           password
         );
 
-        return res.json(link);
+        return res.json({
+          success: true,
+          alias: link.alias,
+        });
       }
 
       const destination = req.body.destination.trim();
       const link = await LinkService.createLink(destination);
 
-      return res.json(link);
+      return res.json({
+        success: true,
+        alias: link.alias,
+      });
     } catch (err) {
       return res.status(400).json({ error: err.message });
     }
