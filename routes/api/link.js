@@ -5,6 +5,6 @@ const checkAuth = require('../../middlewares/check-auth');
 
 const router = express.Router();
 
-router.post('/', checkAuth, LinkController.createLink);
+router.post('/create', checkAuth, LinkController.createLink);
 
 module.exports = router;
