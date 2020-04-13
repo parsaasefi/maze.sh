@@ -7,7 +7,7 @@ const URLHelper = require('./url');
 class SecurityHelper {
   static async isBlacklisted(url) {
     const hosts = URLHelper.allPossibleHosts(url);
-    const res = await blacklist.get(hosts);
+    const [res] = await blacklist.get(hosts);
     return res.length;
   }
 
@@ -18,8 +18,8 @@ class SecurityHelper {
   }
 
   static async check(url) {
-    const isBlacklisted = this.isBlacklisted(url);
-    const isDGA = this.isDGA(url);
+    const isBlacklisted = await this.isBlacklisted(url);
+    const isDGA = await this.isDGA(url);
 
     if (isBlacklisted)
       return {

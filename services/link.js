@@ -3,6 +3,7 @@ const bcrypt = require('bcryptjs');
 const LinkModel = require('../models/Link');
 const LinkHelper = require('../helpers/link');
 const URLHelper = require('../helpers/url');
+const SecurityHelper = require('../helpers/security');
 
 class LinkService {
   /**
@@ -44,6 +45,10 @@ class LinkService {
     }
 
     const finalDestination = await URLHelper.follow(destination);
+    const security = await SecurityHelper.check(finalDestination);
+
+    if (!security.isSafe) throw new Error('We detected this as a bad url');
+
     const newLink = new LinkModel({
       destination: finalDestination,
       creator_id: creatorID,
