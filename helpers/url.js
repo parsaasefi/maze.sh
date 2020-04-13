@@ -1,4 +1,5 @@
 const followRedirect = require('follow-redirect-url');
+const URL = require('url');
 
 class URLHelper {
   static addProtocol(url) {
@@ -8,6 +9,18 @@ class URLHelper {
     if (httpPattern.test(url)) return url;
     if (relativePattern.test(url)) return `https:${url}`;
     return url;
+  }
+
+  static removeWWW(url) {
+    const parsedURL = URL.parse(url);
+    const { hostname } = parsedURL;
+
+    if (hostname.split('.')[0] === 'www') {
+      parsedURL.hostname = hostname.split('.').slice(1).join('.');
+      parsedURL.host = parsedURL.hostname;
+    }
+
+    return URL.format(parsedURL);
   }
 
   /**
