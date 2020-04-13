@@ -25,7 +25,7 @@ class URLHelper {
 
   static allPossibleHosts(url) {
     const parsedURL = URL.parse(url);
-    const { hostname } = parsedURL;
+    const hostname = this.removeWWW(parsedURL.hostname);
     const { length } = hostname;
     const hosts = [hostname];
 
