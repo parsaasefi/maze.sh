@@ -1,6 +1,11 @@
 const _ = require('lodash');
 
 class LinkHelper {
+  /**
+   * Creates a random alias with the given size
+   * @param {number} size Size of the alias
+   * @returns {string} Random alias
+   */
   static generateRandomAlias(size) {
     const chars =
       '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';

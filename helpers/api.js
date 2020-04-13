@@ -2,6 +2,10 @@ const CryptoJS = require('crypto-js');
 const _ = require('lodash');
 
 class APIHelper {
+  /**
+   * Creates a random api key with the size of 30
+   * @returns {string} Randomly generated api key
+   */
   static generateKey() {
     const chars =
       '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
