@@ -2,7 +2,7 @@ const LinkValidator = require('../validators/link');
 const LinkService = require('../services/link');
 
 class LinkController {
-  static getLink(req, res) {
+  static getLinkData(req, res) {
     res.send('Hello World');
   }
 
