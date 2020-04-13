@@ -16,6 +16,25 @@ class SecurityHelper {
     const score = await dgadetective.checkDGA(hostname);
     return score > 100;
   }
+
+  static async check(url) {
+    const isBlacklisted = this.isBlacklisted(url);
+    const isDGA = this.isDGA(url);
+
+    if (isBlacklisted)
+      return {
+        isSafe: false,
+        type: 'blacklist',
+      };
+
+    if (isDGA)
+      return {
+        isSafe: false,
+        type: 'dga',
+      };
+
+    return { isSafe: true };
+  }
 }
 
 module.exports = SecurityHelper;
