@@ -4,21 +4,30 @@ const UserModel = require('../models/User');
 const APIHelper = require('../helpers/api');
 
 class UserService {
+  /**
+   * Register a new user
+   * @param {String} email User's email
+   * @param {String} password User's password
+   * @returns {Promise}
+   */
   static async registerUser(email, password) {
     const emailExists = await UserModel.findOne({ email });
+
     if (emailExists) {
       throw new Error('Email already exists');
     }
 
     const salt = bcrypt.genSaltSync(10);
     const hashedKey = bcrypt.hashSync(password, salt);
+
     const newUser = await new UserModel({
       email,
       password: hashedKey,
     }).save();
-    const apiKey = APIHelper.generateKey(newUser._id);
 
+    const apiKey = APIHelper.generateKey(newUser._id);
     newUser.apiKey = apiKey;
+
     return newUser.save();
   }
 }

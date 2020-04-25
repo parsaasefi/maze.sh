@@ -2,6 +2,11 @@ const CryptoJS = require('crypto-js');
 const _ = require('lodash');
 
 class APIHelper {
+  /**
+   * Generate a random api key based on the user's id
+   * @param {String} id User's id
+   * @returns {String} Randomly generated api key
+   */
   static generateKey(id) {
     const chars =
       '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
