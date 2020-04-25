@@ -12,10 +12,7 @@ class UserService {
    */
   static async registerUser(email, password) {
     const emailExists = await UserModel.findOne({ email });
-
-    if (emailExists) {
-      throw new Error('Email already exists');
-    }
+    if (emailExists) throw new Error('Email already exists');
 
     const salt = bcrypt.genSaltSync(10);
     const hashedKey = bcrypt.hashSync(password, salt);
