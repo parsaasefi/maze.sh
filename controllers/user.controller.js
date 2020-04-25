@@ -13,6 +13,7 @@ class UserController {
     try {
       const email = req.body.email.toLowerCase().trim();
       const password = req.body.password.trim();
+
       await UserService.registerUser(email, password);
 
       return res.json({ success: true });

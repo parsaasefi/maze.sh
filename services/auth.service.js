@@ -5,6 +5,12 @@ const UserModel = require('../models/User');
 const jwtConfig = require('../config/jwt');
 
 class AuthService {
+  /**
+   * Login the user
+   * @param {String} email User's email
+   * @param {String} password User's password
+   * @returns {String} JWT token
+   */
   static async loginUser(email, password) {
     const user = await UserModel.findOne({ email });
     const errorMessage = 'Email or password is incorrect';
