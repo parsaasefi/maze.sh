@@ -6,6 +6,7 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 
 const mongoConfig = require('./config/mongo');
+const apiRoute = require('./routes/api');
 
 const app = express();
 
@@ -22,8 +23,6 @@ app.use(helmet());
 app.use(morgan('tiny'));
 app.use(bodyParser.json());
 
-app.get('/', (req, res) => {
-  res.send('Hello Maze');
-});
+app.use('/api', apiRoute);
 
 module.exports = app;
