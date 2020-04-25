@@ -12,18 +12,14 @@ class UserService {
 
     const salt = bcrypt.genSaltSync(10);
     const hashedKey = bcrypt.hashSync(password, salt);
-    const newUser = new UserModel({
+    const newUser = await new UserModel({
       email,
       password: hashedKey,
-    });
+    }).save();
+    const apiKey = APIHelper.generateKey(newUser._id);
 
-    await newUser.save();
-
-    const user = await UserModel.findOne({ email });
-    const apiKey = APIHelper.generateKey(user._id);
-
-    user.apiKey = apiKey;
-    return user.save();
+    newUser.apiKey = apiKey;
+    return newUser.save();
   }
 }
 
