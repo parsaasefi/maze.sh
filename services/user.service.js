@@ -65,6 +65,27 @@ class UserService {
 
     return user.save();
   }
+
+  /**
+   * Change the user's password
+   * @param {String} id User's id
+   * @param {String} currentPassword User's current password
+   * @param {String} newPassword User's new password to be stored
+   * @returns {Promise}
+   */
+  static async changePassword(id, currentPassword, newPassword) {
+    const user = await UserModel.findById(id);
+    if (!user) throw new Error("User doesn't exists");
+
+    const isPasswordValid = bcrypt.compareSync(currentPassword, user.password);
+    if (!isPasswordValid) throw new Error('You password is incorrect');
+
+    const salt = bcrypt.genSaltSync(10);
+    const hashedPassword = bcrypt.hashSync(newPassword, salt);
+    user.password = hashedPassword;
+
+    return user.save();
+  }
 }
 
 module.exports = UserService;
