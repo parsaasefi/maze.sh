@@ -56,7 +56,8 @@ class UserService {
     if (!user) throw new Error("User doesn't exists");
 
     const emailExists = await UserModel.findOne({ email: newEmail });
-    if (emailExists && emailExists._id !== id) {
+
+    if (emailExists && String(emailExists._id) !== id) {
       throw new Error('Email already exists');
     }
 

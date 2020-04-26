@@ -44,6 +44,19 @@ class UserController {
       return res
         .status(400)
         .json({ error: validationError.details[0].message.replace(/"/g, '') });
+
+    try {
+      const { id } = req.user;
+      const newEmail = req.body.newEmail.toLowerCase().trim();
+      const { email } = await UserService.editUser(id, newEmail);
+
+      return res.json({
+        success: true,
+        email,
+      });
+    } catch (err) {
+      return res.status(400).json({ error: err.message });
+    }
   }
 }
 
