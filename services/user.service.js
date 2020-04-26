@@ -27,6 +27,23 @@ class UserService {
 
     return newUser.save();
   }
+
+  /**
+   * Get info of the user with the given id
+   * @param {String} id User's id
+   * @returns {Object} User's info
+   */
+  static async getInfo(id) {
+    const user = await UserModel.findById(id);
+    if (!user) throw new Error("User doesn't exists");
+
+    const info = {
+      email: user.email,
+      apiKey: user.apiKey,
+    };
+
+    return info;
+  }
 }
 
 module.exports = UserService;
