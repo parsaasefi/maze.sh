@@ -21,8 +21,12 @@ class AuthService {
     if (!isPasswordValid) throw new Error(errorMessage);
 
     const token = jwt.sign({ id: user._id }, jwtConfig.secret);
+    const userInfo = {
+      apiKey: user.apiKey,
+      token,
+    };
 
-    return token;
+    return userInfo;
   }
 }
 

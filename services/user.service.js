@@ -35,7 +35,6 @@ class UserService {
    */
   static async getInfo(id) {
     const user = await UserModel.findById(id);
-    console.log(user);
     if (!user) throw new Error("User doesn't exists");
 
     const info = {

@@ -13,11 +13,13 @@ class AuthController {
     try {
       const email = req.body.email.toLowerCase().trim();
       const password = req.body.password.trim();
-      const token = await AuthService.loginUser(email, password);
+      const { token, apiKey } = await AuthService.loginUser(email, password);
 
       return res.json({
         success: true,
+        apiKey,
         token,
+        email,
       });
     } catch (err) {
       return res.status(400).json({ error: err.message });
