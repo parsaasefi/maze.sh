@@ -23,7 +23,18 @@ class UserController {
   }
 
   static async getInfo(req, res) {
-    res.send('Hello World');
+    try {
+      const { id } = req.user;
+      const { email, apiKey } = await UserService.getInfo(id);
+
+      return res.json({
+        success: true,
+        email,
+        apiKey,
+      });
+    } catch (err) {
+      return res.status(400).json({ error: err.message });
+    }
   }
 }
 
