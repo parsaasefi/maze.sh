@@ -7,6 +7,6 @@ const router = express.Router();
 
 router.post('/register', UserController.registerUser);
 router.get('/info', authenticateUser, UserController.getInfo);
-router.post('/edit', authenticateUser, UserController.editUser);
+router.patch('/edit', authenticateUser, UserController.editUser);
 
 module.exports = router;
