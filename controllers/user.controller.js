@@ -21,6 +21,10 @@ class UserController {
       return res.status(400).json({ error: err.message });
     }
   }
+
+  static async getInfo(req, res) {
+    res.send('Hello World');
+  }
 }
 
 module.exports = UserController;
