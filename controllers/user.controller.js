@@ -36,6 +36,15 @@ class UserController {
       return res.status(400).json({ error: err.message });
     }
   }
+
+  static async editUser(req, res) {
+    const { error: validationError } = UserValidator.edit(req.body);
+
+    if (validationError)
+      return res
+        .status(400)
+        .json({ error: validationError.details[0].message.replace(/"/g, '') });
+  }
 }
 
 module.exports = UserController;

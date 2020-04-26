@@ -14,6 +14,19 @@ class UserValidator {
 
     return schema.validate(data);
   }
+
+  /**
+   * Validate edit request
+   * @param {Object} data Data to validate
+   * @returns {Object} Validation result
+   */
+  static edit(data) {
+    const schema = Joi.object().keys({
+      newEmail: Joi.string().email().required().label('New email'),
+    });
+
+    return schema.validate(data);
+  }
 }
 
 module.exports = UserValidator;
