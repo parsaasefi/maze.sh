@@ -60,7 +60,12 @@ class UserController {
   }
 
   static async changePassword(req, res) {
-    res.send('Hello Maze');
+    const { error: validationError } = UserValidator.changePassword(req.body);
+
+    if (validationError)
+      return res
+        .status(400)
+        .json({ error: validationError.details[0].message.replace(/"/g, '') });
   }
 }
 

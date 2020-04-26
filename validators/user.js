@@ -27,6 +27,20 @@ class UserValidator {
 
     return schema.validate(data);
   }
+
+  /**
+   * Validate change password request
+   * @param {Object} data Data to validate
+   * @returns {Object} Validation result
+   */
+  static changePassword(data) {
+    const schema = Joi.object().keys({
+      currentPassword: Joi.string().required().label('Current password'),
+      newPassword: Joi.string().min(6).required().label('New password'),
+    });
+
+    return schema.validate(data);
+  }
 }
 
 module.exports = UserValidator;
