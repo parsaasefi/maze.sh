@@ -44,6 +44,26 @@ class UserService {
 
     return info;
   }
+
+  /**
+   * Edit the email of the given user
+   * @param {String} id User's id
+   * @param {String} newEmail User's new email to be saved
+   * @returns {Promise}
+   */
+  static async editUser(id, newEmail) {
+    const user = await UserModel.findById(id);
+    if (!user) throw new Error("User doesn't exists");
+
+    const emailExists = await UserModel.findOne({ email: newEmail });
+    if (emailExists && emailExists._id !== id) {
+      throw new Error('Email already exists');
+    }
+
+    user.email = newEmail;
+
+    return user.save();
+  }
 }
 
 module.exports = UserService;
