@@ -66,6 +66,17 @@ class UserController {
       return res
         .status(400)
         .json({ error: validationError.details[0].message.replace(/"/g, '') });
+
+    try {
+      const { id } = req.user;
+      const currentPassword = req.body.currentPassword.trim();
+      const newPassword = req.body.newPassword.trim();
+      await UserService.changePassword(id, currentPassword, newPassword);
+
+      return res.json({ success: true });
+    } catch (err) {
+      return res.status(400).json({ error: err.message });
+    }
   }
 }
 

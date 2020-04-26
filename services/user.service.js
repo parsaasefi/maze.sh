@@ -78,7 +78,7 @@ class UserService {
     if (!user) throw new Error("User doesn't exists");
 
     const isPasswordValid = bcrypt.compareSync(currentPassword, user.password);
-    if (!isPasswordValid) throw new Error('You password is incorrect');
+    if (!isPasswordValid) throw new Error('The password is incorrect');
 
     const salt = bcrypt.genSaltSync(10);
     const hashedPassword = bcrypt.hashSync(newPassword, salt);
