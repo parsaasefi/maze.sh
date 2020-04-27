@@ -9,5 +9,6 @@ router.post('/register', UserController.registerUser);
 router.get('/info', authenticateUser, UserController.getInfo);
 router.patch('/edit', authenticateUser, UserController.editUser);
 router.patch('/password', authenticateUser, UserController.changePassword);
+router.delete('/delete', authenticateUser, UserController.deleteAccount);
 
 module.exports = router;
