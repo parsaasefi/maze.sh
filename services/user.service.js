@@ -102,6 +102,22 @@ class UserService {
 
     return user.remove();
   }
+
+  /**
+   * Regenerate api key
+   * @param {String} id User's id
+   * @returns {String} New api key
+   */
+  static async regenerateAPIKey(id) {
+    const user = await UserModel.findById(id);
+    if (!user) throw new Error("User doesn't exist");
+
+    const newAPIKey = APIHelper.generateKey(id);
+    user.apiKey = newAPIKey;
+    await user.save();
+
+    return newAPIKey;
+  }
 }
 
 module.exports = UserService;
