@@ -99,7 +99,17 @@ class UserController {
   }
 
   static async regenerateAPIKey(req, res) {
-    res.send('Hello Maze');
+    try {
+      const { id } = req.user;
+      const newAPIKey = await UserService.regenerateAPIKey(id);
+
+      return res.json({
+        success: true,
+        apiKey: newAPIKey,
+      });
+    } catch (err) {
+      return res.status(400).json({ error: err.message });
+    }
   }
 }
 
