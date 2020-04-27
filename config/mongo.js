@@ -6,7 +6,7 @@ dotenv.config({
 });
 
 const config = {
-  uri: process.env.MONGO_URI || 'mongodb://localhost/MazeSh',
+  uri: process.env.MONGO_URI || 'mongodb://localhost/mazeshortener',
 };
 
 module.exports = config;
