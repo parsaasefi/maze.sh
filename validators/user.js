@@ -41,6 +41,19 @@ class UserValidator {
 
     return schema.validate(data);
   }
+
+  /**
+   * Validate delete account request
+   * @param {Object} data Data to validate
+   * @returns {Object} Validation result
+   */
+  static deleteAccount(data) {
+    const schema = Joi.object().keys({
+      password: Joi.string().required().label('Password'),
+    });
+
+    return schema.validate(data);
+  }
 }
 
 module.exports = UserValidator;

@@ -80,7 +80,12 @@ class UserController {
   }
 
   static async deleteAccount(req, res) {
-    res.send('Hello Maze');
+    const { error: validationError } = UserValidator.deleteAccount(req.body);
+
+    if (validationError)
+      return res
+        .status(400)
+        .json({ error: validationError.details[0].message.replace(/"/g, '') });
   }
 }
 
