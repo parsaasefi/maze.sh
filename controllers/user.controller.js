@@ -97,6 +97,10 @@ class UserController {
       return res.status(400).json({ error: err.message });
     }
   }
+
+  static async regenerateAPIKey(req, res) {
+    res.send('Hello Maze');
+  }
 }
 
 module.exports = UserController;
