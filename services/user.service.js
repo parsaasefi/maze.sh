@@ -86,6 +86,22 @@ class UserService {
 
     return user.save();
   }
+
+  /**
+   * Delete user's account
+   * @param {String} id User's id to remove
+   * @param {String} password User's password
+   * @returns {Promise}
+   */
+  static async deleteAccount(id, password) {
+    const user = await UserModel.findById(id);
+    if (!user) throw new Error("User doesn't exist");
+
+    const isPasswordValid = bcrypt.compareSync(password, user.password);
+    if (!isPasswordValid) throw new Error('The password is incorrect');
+
+    return user.remove();
+  }
 }
 
 module.exports = UserService;
