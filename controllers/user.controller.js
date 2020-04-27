@@ -86,6 +86,16 @@ class UserController {
       return res
         .status(400)
         .json({ error: validationError.details[0].message.replace(/"/g, '') });
+
+    try {
+      const { id } = req.user;
+      const password = req.body.password.trim();
+      await UserService.deleteAccount(id, password);
+
+      return res.json({ success: true });
+    } catch (err) {
+      return res.status(400).json({ error: err.message });
+    }
   }
 }
 
