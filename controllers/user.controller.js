@@ -1,6 +1,115 @@
+const UserService = require('../services/user.service');
+const UserValidator = require('../validators/user');
+
 class UserController {
-  static registerUser(req, res) {
-    res.send('Register user');
+  static async registerUser(req, res) {
+    const { error: validationError } = UserValidator.register(req.body);
+
+    if (validationError)
+      return res
+        .status(400)
+        .json({ error: validationError.details[0].message.replace(/"/g, '') });
+
+    try {
+      const email = req.body.email.toLowerCase().trim();
+      const password = req.body.password.trim();
+
+      await UserService.registerUser(email, password);
+
+      return res.json({ success: true });
+    } catch (err) {
+      return res.status(400).json({ error: err.message });
+    }
+  }
+
+  static async getInfo(req, res) {
+    try {
+      const { id } = req.user;
+      const { email, apiKey } = await UserService.getInfo(id);
+
+      return res.json({
+        success: true,
+        email,
+        apiKey,
+      });
+    } catch (err) {
+      return res.status(400).json({ error: err.message });
+    }
+  }
+
+  static async editUser(req, res) {
+    const { error: validationError } = UserValidator.edit(req.body);
+
+    if (validationError)
+      return res
+        .status(400)
+        .json({ error: validationError.details[0].message.replace(/"/g, '') });
+
+    try {
+      const { id } = req.user;
+      const newEmail = req.body.newEmail.toLowerCase().trim();
+      const { email } = await UserService.editUser(id, newEmail);
+
+      return res.json({
+        success: true,
+        email,
+      });
+    } catch (err) {
+      return res.status(400).json({ error: err.message });
+    }
+  }
+
+  static async changePassword(req, res) {
+    const { error: validationError } = UserValidator.changePassword(req.body);
+
+    if (validationError)
+      return res
+        .status(400)
+        .json({ error: validationError.details[0].message.replace(/"/g, '') });
+
+    try {
+      const { id } = req.user;
+      const currentPassword = req.body.currentPassword.trim();
+      const newPassword = req.body.newPassword.trim();
+      await UserService.changePassword(id, currentPassword, newPassword);
+
+      return res.json({ success: true });
+    } catch (err) {
+      return res.status(400).json({ error: err.message });
+    }
+  }
+
+  static async deleteAccount(req, res) {
+    const { error: validationError } = UserValidator.deleteAccount(req.body);
+
+    if (validationError)
+      return res
+        .status(400)
+        .json({ error: validationError.details[0].message.replace(/"/g, '') });
+
+    try {
+      const { id } = req.user;
+      const password = req.body.password.trim();
+      await UserService.deleteAccount(id, password);
+
+      return res.json({ success: true });
+    } catch (err) {
+      return res.status(400).json({ error: err.message });
+    }
+  }
+
+  static async regenerateAPIKey(req, res) {
+    try {
+      const { id } = req.user;
+      const newAPIKey = await UserService.regenerateAPIKey(id);
+
+      return res.json({
+        success: true,
+        apiKey: newAPIKey,
+      });
+    } catch (err) {
+      return res.status(400).json({ error: err.message });
+    }
   }
 }
 
