@@ -25,11 +25,9 @@ class Blacklist {
   }
 
   findHosts(hosts) {
-    const searchArray = hosts.map(host => `host=${escape(host)}`);
-    const search = searchArray.join(' OR ');
-
-    const queryArray = ['SELECT * FROM blacklist WHERE'];
-    const query = queryArray.concat(search).join(' ');
+    const query = `SELECT * FROM blacklist WHERE ${hosts
+      .map(host => `host=${escape(host)}`)
+      .join(' OR ')}`;
 
     return this.connection.query(query);
   }
