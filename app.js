@@ -6,6 +6,7 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 
 const mongoConfig = require('./config/mongo');
+const Router = require('./routes');
 
 const app = express();
 
@@ -24,8 +25,6 @@ app.use(helmet());
 app.use(morgan('dev'));
 app.use(bodyParser.json());
 
-app.get('/', (req, res) => {
-  res.send('Hello Maze');
-});
+Router.registerRoutes(app);
 
 module.exports = app;
