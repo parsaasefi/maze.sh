@@ -29,6 +29,8 @@
     "helmet": "^3.22.0",
     "mariadb": "^2.3.1",
     "mongoose": "^5.9.12",
-    "morgan": "^1.10.0"
+    "morgan": "^1.10.0",
+    "mysql2": "^2.1.0",
+    "sqlstring": "^2.3.2"
   }
 }
