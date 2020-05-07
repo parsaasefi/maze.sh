@@ -1,0 +1,22 @@
+#!/usr/bin/env node
+
+const http = require('http');
+const path = require('path');
+const dotenv = require('dotenv');
+const clear = require('console-clear');
+
+const app = require('../app');
+
+dotenv.config({
+  path: path.resolve(__dirname, '../.env'),
+});
+
+const server = http.createServer(app);
+const PORT = process.env.PORT || 3000;
+
+server.listen(PORT, err => {
+  if (err) throw err;
+
+  clear(true);
+  console.log(`Server running on port ${PORT}`);
+});
